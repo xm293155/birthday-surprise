@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>丁猪生日惊喜 🐽🎂</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+html,body{
+  width:100%;height:100%;
+  overflow:hidden;
+  font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans SC',sans-serif;
+}
+
+body{
+  background:linear-gradient(135deg,#FFE4EC 0%,#FFF5E0 40%,#E8F5E9 100%);
+  display:flex;align-items:center;justify-content:center;
+  transition:background 1.5s ease;
+}
+
+body.dark-mode{
+  background:linear-gradient(135deg,#2D1B33 0%,#1A1A2E 40%,#16213E 100%);
+}
+
+/* ====== 漂浮装饰 ====== */
+.floating-deco{
+  position:fixed;pointer-events:none;z-index:0;
+  animation:floatUp linear infinite;
+  opacity:0.5;
+}
+@keyframes floatUp{
+  0%{transform:translateY(100vh) rotate(0deg) scale(0.5);opacity:0}
+  10%{opacity:0.5}
+  90%{opacity:0.5}
+  100%{transform:translateY(-10vh) rotate(360deg) scale(1);opacity:0}
+}
+
+/* ====== 步骤容器 ====== */
+.step{
+  position:absolute;top:0;left:0;width:100%;height:100%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:opacity 0.8s ease,transform 0.8s ease;
+  z-index:10;
+}
+.step.hidden{
+  opacity:0;pointer-events:none;
+  transform:scale(0.95);
+}
+
+/* ====== 步骤一：小猪按钮 ====== */
+#step1 .pig-btn{
+  position:relative;
+  width:220px;height:220px;
+  border-radius:50%;
+  background:linear-gradient(145deg,#FFB6C1,#FF91A4);
+  border:none;cursor:pointer;
+  box-shadow:0 8px 30px rgba(255,145,164,0.4),0 0 0 6px rgba(255,182,193,0.3);
+  transition:transform 0.3s ease,box-shadow 0.3s ease;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  animation:pigBounce 2s ease-in-out infinite;
+}
+#step1 .pig-btn:hover{
+  transform:scale(1.08);
+  box-shadow:0 12px 40px rgba(255,145,164,0.6),0 0 0 8px rgba(255,182,193,0.4);
+}
+#step1 .pig-btn:active{
+  transform:scale(0.96);
+}
+@keyframes pigBounce{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-8px)}
+}
+#step1 .pig-btn:hover{
+  animation:none;transform:scale(1.08);
+}
+
+.pig-face{font-size:64px;line-height:1;margin-bottom:4px}
+.pig-btn-text{
+  color:#fff;font-size:14px;font-weight:600;
+  text-shadow:0 1px 3px rgba(0,0,0,0.15);
+  letter-spacing:1px;
+}
+
+/* 小猪耳朵 */
+.pig-ear{
+  position:absolute;top:-12px;width:36px;height:36px;
+  border-radius:50% 50% 50% 50%;
+  background:linear-gradient(145deg,#FFB6C1,#FF91A4);
+}
+.pig-ear.left{left:28px;transform:rotate(-20deg)}
+.pig-ear.right{right:28px;transform:rotate(20deg)}
+.pig-ear::after{
+  content:'';position:absolute;top:6px;left:6px;
+  width:24px;height:24px;border-radius:50%;
+  background:#FFD1DC;
+}
+
+/* ====== 步骤二：蛋糕 ====== */
+#step2 .cake-area{
+  display:flex;flex-direction:column;align-items:center;
+  position:relative;
+}
+
+.birthday-text{
+  color:#D4618C;font-size:20px;font-weight:700;
+  text-align:center;line-height:1.6;
+  margin-bottom:30px;
+  text-shadow:0 2px 8px rgba(212,97,140,0.2);
+  padding:0 20px;
+}
+.birthday-text .age{
+  font-size:28px;color:#E8527A;
+}
+
+.hint-text{
+  color:#C06080;font-size:14px;
+  margin-top:24px;
+  text-align:center;
+  animation:hintPulse 2s ease-in-out infinite;
+}
+@keyframes hintPulse{
+  0%,100%{opacity:0.7;transform:scale(1)}
+  50%{opacity:1;transform:scale(1.03)}
+}
+
+/* 音量指示器 */
+.volume-bar-container{
+  width:160px;height:8px;
+  background:rgba(255,255,255,0.5);
+  border-radius:4px;margin-top:16px;
+  overflow:hidden;
+  border:1px solid rgba(212,97,140,0.2);
+}
+.volume-bar{
+  height:100%;width:0%;
+  background:linear-gradient(90deg,#FFB6C1,#FF6B9D);
+  border-radius:4px;
+  transition:width 0.1s ease;
+}
+
+/* ====== CSS蛋糕 ====== */
+.cake{
+  position:relative;
+  display:flex;flex-direction:column;align-items:center;
+}
+
+.cake-layer{
+  border-radius:12px;
+  position:relative;
+}
+.cake-layer-1{
+  width:180px;height:50px;
+  background:linear-gradient(180deg,#FFB6C1 0%,#FF91A4 100%);
+  border-radius:8px 8px 12px 12px;
+  box-shadow:0 4px 0 #E8899C;
+}
+.cake-layer-2{
+  width:150px;height:45px;
+  background:linear-gradient(180deg,#FFD1DC 0%,#FFB6C1 100%);
+  border-radius:8px 8px 10px 10px;
+  box-shadow:0 3px 0 #E8A0B0;
+  margin-bottom:-2px;
+}
+.cake-layer-3{
+  width:120px;height:40px;
+  background:linear-gradient(180deg,#FFF0F3 0%,#FFD1DC 100%);
+  border-radius:8px 8px 10px 10px;
+  box-shadow:0 3px 0 #E8B0C0;
+  margin-bottom:-2px;
+}
+
+/* 蛋糕装饰奶油 */
+.cream{
+  position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);
+  width:calc(100% + 10px);height:14px;
+  background:#FFF0F3;
+  border-radius:0 0 50% 50% / 0 0 100% 100%;
+}
+.cream-dots{
+  position:absolute;top:-4px;left:0;width:100%;height:8px;
+  display:flex;justify-content:space-around;
+}
+.cream-dot{
+  width:10px;height:10px;
+  background:#FFF0F3;border-radius:50%;
+  box-shadow:0 0 4px rgba(255,240,243,0.5);
+}
+
+/* 蛋糕底座 */
+.cake-plate{
+  width:210px;height:12px;
+  background:linear-gradient(180deg,#FFD1DC,#FFB6C1);
+  border-radius:0 0 50% 50% / 0 0 100% 100%;
+  margin-top:-2px;
+}
+
+/* ====== 蜡烛 ====== */
+.candles{
+  display:flex;gap:20px;
+  margin-bottom:-4px;
+  position:relative;
+  z-index:5;
+}
+.candle{
+  display:flex;flex-direction:column;align-items:center;
+}
+.candle-body{
+  width:8px;height:30px;
+  background:linear-gradient(180deg,#FFE4B5,#FFD700);
+  border-radius:2px 2px 0 0;
+  position:relative;
+}
+.candle-body::after{
+  content:'';position:absolute;
+  top:0;left:50%;transform:translateX(-50%);
+  width:2px;height:8px;
+  background:#333;border-radius:1px;
+}
+.candle-body::before{
+  content:'';position:absolute;
+  top:-6px;left:50%;transform:translateX(-50%);
+  width:3px;height:6px;
+  background:linear-gradient(180deg,#FF6347,#FF4500);
+  border-radius:50% 50% 20% 20%;
+}
+
+/* 火焰 */
+.flame{
+  position:absolute;
+  top:-28px;left:50%;transform:translateX(-50%);
+  width:14px;height:20px;
+  background:radial-gradient(ellipse at center bottom,#FFD700 0%,#FF8C00 40%,#FF4500 70%,transparent 100%);
+  border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;
+  animation:flicker 0.3s ease-in-out infinite alternate;
+  transition:opacity 0.5s ease,transform 0.5s ease;
+}
+.flame::after{
+  content:'';position:absolute;
+  top:2px;left:50%;transform:translateX(-50%);
+  width:8px;height:12px;
+  background:radial-gradient(ellipse at center bottom,#FFF8DC 0%,#FFD700 60%,transparent 100%);
+  border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;
+}
+@keyframes flicker{
+  0%{transform:translateX(-50%) scale(1) rotate(-2deg)}
+  50%{transform:translateX(-50%) scale(1.1,0.95) rotate(1deg)}
+  100%{transform:translateX(-50%) scale(0.95,1.05) rotate(-1deg)}
+}
+
+.flame.out{
+  opacity:0;
+  transform:translateX(-50%) scale(0,0);
+}
+
+/* 烟雾 */
+.smoke{
+  position:absolute;top:-40px;left:50%;transform:translateX(-50%);
+  width:6px;height:6px;
+  background:rgba(200,200,200,0.6);
+  border-radius:50%;
+  opacity:0;
+  transition:opacity 0.3s ease;
+}
+.smoke.show{
+  animation:smokeRise 1.5s ease-out forwards;
+}
+@keyframes smokeRise{
+  0%{opacity:0.7;transform:translateX(-50%) translateY(0) scale(1)}
+  100%{opacity:0;transform:translateX(-50%) translateY(-40px) scale(2.5)}
+}
+
+/* ====== 步骤三：许愿 ====== */
+#step3{
+  z-index:20;
+}
+#step3 .wish-text{
+  color:#FF6B9D;
+  font-size:26px;font-weight:700;
+  text-align:center;
+  line-height:1.8;
+  padding:0 30px;
+  text-shadow:0 2px 15px rgba(255,107,157,0.4);
+  animation:wishAppear 1s ease-out;
+}
+@keyframes wishAppear{
+  0%{opacity:0;transform:scale(0.8) translateY(20px)}
+  100%{opacity:1;transform:scale(1) translateY(0)}
+}
+#step3 .wish-emoji{
+  font-size:48px;
+  margin-top:20px;
+  animation:emojiFloat 2s ease-in-out infinite;
+}
+@keyframes emojiFloat{
+  0%,100%{transform:translateY(0) rotate(-5deg)}
+  50%{transform:translateY(-10px) rotate(5deg)}
+}
+
+/* ====== 步骤三扩展：礼物入口（延迟淡入） ====== */
+.gift-area{
+  margin-top:40px;
+  display:flex;flex-direction:column;align-items:center;
+  opacity:0;
+  transform:translateY(20px);
+  transition:opacity 0.8s ease,transform 0.8s ease;
+}
+.gift-area.visible{
+  opacity:1;
+  transform:translateY(0);
+}
+.gift-question{
+  color:#FFB6C1;font-size:16px;font-weight:600;
+  margin-bottom:16px;
+  text-shadow:0 1px 6px rgba(255,182,193,0.3);
+}
+.gift-btn{
+  background:linear-gradient(145deg,#FFB6C1,#FF91A4);
+  color:#fff;border:none;
+  font-family:inherit;font-size:16px;font-weight:700;
+  padding:12px 32px;border-radius:28px;
+  cursor:pointer;
+  box-shadow:0 4px 16px rgba(255,145,164,0.4);
+  transition:transform 0.2s ease,box-shadow 0.2s ease;
+  letter-spacing:1px;
+}
+.gift-btn:hover{
+  transform:scale(1.06);
+  box-shadow:0 6px 24px rgba(255,145,164,0.6);
+}
+.gift-btn:active{
+  transform:scale(0.95);
+}
+
+/* ====== 红包弹窗 ====== */
+.modal-overlay{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background:rgba(0,0,0,0.55);
+  z-index:200;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:opacity 0.3s ease;
+}
+.modal-overlay.show{
+  opacity:1;pointer-events:auto;
+}
+
+.modal-card{
+  width:85%;max-width:340px;
+  background:linear-gradient(180deg,#FFF8FA 0%,#FFE4EC 100%);
+  border-radius:24px;
+  padding:32px 24px 24px;
+  text-align:center;
+  position:relative;
+  box-shadow:0 16px 48px rgba(0,0,0,0.25);
+  transform:scale(0.3);
+  transition:transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
+}
+.modal-overlay.show .modal-card{
+  transform:scale(1);
+}
+
+.modal-pig{
+  font-size:52px;
+  margin-bottom:8px;
+  animation:modalPigBounce 1s ease-in-out infinite;
+}
+@keyframes modalPigBounce{
+  0%,100%{transform:translateY(0) rotate(0deg)}
+  25%{transform:translateY(-6px) rotate(-5deg)}
+  75%{transform:translateY(-6px) rotate(5deg)}
+}
+
+.modal-title{
+  color:#D4618C;font-size:20px;font-weight:700;
+  margin-bottom:20px;
+  text-shadow:0 1px 4px rgba(212,97,140,0.2);
+}
+
+.modal-code-label{
+  color:#C06080;font-size:12px;
+  margin-bottom:6px;letter-spacing:2px;
+}
+
+.modal-code{
+  display:inline-block;
+  background:linear-gradient(135deg,#FF4757,#FF6B81);
+  color:#fff;
+  font-size:32px;font-weight:800;
+  letter-spacing:6px;
+  padding:12px 28px;
+  border-radius:14px;
+  margin-bottom:16px;
+  box-shadow:0 4px 16px rgba(255,71,87,0.35);
+  user-select:all;
+}
+
+.modal-hint{
+  color:#D4618C;font-size:13px;
+  margin-bottom:24px;line-height:1.6;
+  padding:0 10px;
+}
+
+.modal-close-btn{
+  background:linear-gradient(145deg,#FFB6C1,#FF91A4);
+  color:#fff;border:none;
+  font-family:inherit;font-size:15px;font-weight:700;
+  padding:12px 36px;border-radius:24px;
+  cursor:pointer;
+  box-shadow:0 4px 14px rgba(255,145,164,0.4);
+  transition:transform 0.2s ease,box-shadow 0.2s ease;
+  letter-spacing:1px;
+}
+.modal-close-btn:hover{
+  transform:scale(1.05);
+  box-shadow:0 6px 20px rgba(255,145,164,0.6);
+}
+.modal-close-btn:active{
+  transform:scale(0.95);
+}
+
+/* ====== 彩纸 ====== */
+.confetti-piece{
+  position:fixed;top:-10px;
+  width:8px;height:12px;
+  border-radius:2px;
+  z-index:100;pointer-events:none;
+  animation:confettiFall linear forwards;
+}
+@keyframes confettiFall{
+  0%{transform:translateY(0) rotate(0deg);opacity:1}
+  80%{opacity:1}
+  100%{transform:translateY(100vh) rotate(720deg);opacity:0}
+}
+
+/* ====== 权限提示 ====== */
+.perm-hint{
+  color:#C06080;font-size:12px;
+  margin-top:16px;opacity:0.7;
+  text-align:center;padding:0 40px;
+}
+
+/* ====== 照片回忆墙 ====== */
+#photo-album{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  z-index:300;
+  overflow:hidden;
+  opacity:0;
+  transition:opacity 1.2s ease;
+  pointer-events:none;
+  display:flex;flex-direction:column;
+}
+#photo-album.show{
+  opacity:1;pointer-events:auto;
+}
+
+/* 星空呼吸渐变背景 */
+.album-bg{
+  position:absolute;top:0;left:0;width:100%;height:100%;
+  background:linear-gradient(180deg,#1A1A2E 0%,#2D1B33 30%,#3B1F4B 60%,#1A1A2E 100%);
+  background-size:100% 400%;
+  animation:albumBgBreathe 8s ease-in-out infinite;
+}
+@keyframes albumBgBreathe{
+  0%,100%{background-position:0% 0%}
+  50%{background-position:0% 100%}
+}
+
+/* 星星 */
+.album-star{
+  position:absolute;
+  width:2px;height:2px;
+  background:#fff;border-radius:50%;
+  animation:starTwinkle 2s ease-in-out infinite;
+}
+@keyframes starTwinkle{
+  0%,100%{opacity:0.3;transform:scale(1)}
+  50%{opacity:1;transform:scale(1.5)}
+}
+
+/* 相册标题 */
+.album-title{
+  position:relative;z-index:10;
+  text-align:center;
+  padding:36px 20px 12px;
+  color:#FFD1DC;font-size:17px;font-weight:700;
+  text-shadow:0 2px 12px rgba(255,107,157,0.5);
+  letter-spacing:1px;line-height:1.6;
+  flex-shrink:0;
+}
+
+/* 横向滑动容器 */
+.album-slider{
+  position:relative;z-index:5;
+  flex:1;
+  display:flex;
+  align-items:center;
+  overflow-x:auto;
+  overflow-y:hidden;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+  padding:0 calc(50% - 130px);
+  gap:16px;
+}
+.album-slider::-webkit-scrollbar{display:none}
+.album-slider{-ms-overflow-style:none;scrollbar-width:none}
+
+/* 拍立得卡片 */
+.polaroid{
+  flex-shrink:0;
+  width:240px;
+  background:#fff;
+  border-radius:8px;
+  padding:10px 10px 36px;
+  box-shadow:0 6px 24px rgba(0,0,0,0.35);
+  scroll-snap-align:center;
+  transform:rotate(var(--rot,0deg));
+  transition:transform 0.3s ease,box-shadow 0.3s ease;
+}
+.polaroid:nth-child(odd){ --rot:-2deg; }
+.polaroid:nth-child(even){ --rot:1.5deg; }
+.polaroid:hover{
+  transform:rotate(0deg) scale(1.04);
+  box-shadow:0 10px 32px rgba(0,0,0,0.45);
+}
+.polaroid img{
+  width:100%;border-radius:4px;
+  display:block;aspect-ratio:3/4;
+  object-fit:cover;background:#f0e0e8;
+}
+.polaroid-caption{
+  text-align:center;
+  color:#C06080;font-size:12px;
+  margin-top:10px;letter-spacing:0.5px;
+}
+
+/* 底部悬浮按钮 */
+.kiss-btn-wrap{
+  position:relative;z-index:10;
+  text-align:center;
+  padding:12px 20px 32px;
+  flex-shrink:0;
+}
+.kiss-btn{
+  background:linear-gradient(145deg,#FFB6C1,#FF91A4);
+  color:#fff;border:none;
+  font-family:inherit;font-size:16px;font-weight:700;
+  padding:14px 36px;border-radius:28px;
+  cursor:pointer;
+  box-shadow:0 4px 20px rgba(255,145,164,0.5);
+  letter-spacing:1px;
+  animation:kissPulse 2s ease-in-out infinite;
+  transition:transform 0.2s ease;
+}
+.kiss-btn:active{
+  transform:scale(0.94);
+}
+@keyframes kissPulse{
+  0%,100%{transform:scale(1);box-shadow:0 4px 20px rgba(255,145,164,0.5)}
+  50%{transform:scale(1.06);box-shadow:0 6px 28px rgba(255,145,164,0.7)}
+}
+
+/* 爱心飘落 */
+.heart-piece{
+  position:fixed;top:-30px;
+  z-index:400;pointer-events:none;
+  animation:heartFall linear forwards;
+}
+@keyframes heartFall{
+  0%{transform:translateY(0) rotate(0deg) scale(0.5);opacity:1}
+  80%{opacity:0.9}
+  100%{transform:translateY(110vh) rotate(720deg) scale(1.2);opacity:0}
+}
+
+/* 亲亲弹窗 */
+.kiss-modal-overlay{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background:rgba(0,0,0,0.5);
+  z-index:500;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:opacity 0.4s ease;
+}
+.kiss-modal-overlay.show{
+  opacity:1;pointer-events:auto;
+}
+.kiss-modal-card{
+  width:85%;max-width:340px;
+  background:linear-gradient(180deg,#FFF8FA 0%,#FFE4EC 100%);
+  border-radius:24px;
+  padding:36px 24px 28px;
+  text-align:center;
+  box-shadow:0 16px 48px rgba(0,0,0,0.3);
+  transform:scale(0.3);
+  transition:transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
+}
+.kiss-modal-overlay.show .kiss-modal-card{
+  transform:scale(1);
+}
+.kiss-modal-emoji{
+  font-size:56px;margin-bottom:12px;
+  animation:kissEmojiBounce 1s ease-in-out infinite;
+}
+@keyframes kissEmojiBounce{
+  0%,100%{transform:scale(1) rotate(0deg)}
+  25%{transform:scale(1.15) rotate(-8deg)}
+  75%{transform:scale(1.15) rotate(8deg)}
+}
+.kiss-modal-text{
+  color:#D4618C;font-size:18px;font-weight:700;
+  line-height:1.8;
+  text-shadow:0 1px 4px rgba(212,97,140,0.2);
+}
+.kiss-modal-close{
+  margin-top:24px;
+  background:linear-gradient(145deg,#FFB6C1,#FF91A4);
+  color:#fff;border:none;
+  font-family:inherit;font-size:15px;font-weight:700;
+  padding:12px 32px;border-radius:24px;
+  cursor:pointer;
+  box-shadow:0 4px 14px rgba(255,145,164,0.4);
+  transition:transform 0.2s ease;
+  letter-spacing:1px;
+}
+.kiss-modal-close:active{transform:scale(0.94)}
+</style>
+</head>
+<body>
+
+<!-- 步骤一：权限获取 -->
+<div id="step1" class="step">
+  <button class="pig-btn" id="startBtn">
+    <div class="pig-ear left"></div>
+    <div class="pig-ear right"></div>
+    <div class="pig-face">🐷</div>
+    <div class="pig-btn-text">丁猪专属惊喜<br>点击开启 🐽</div>
+  </button>
+  <div class="perm-hint">点击后需要授权麦克风权限哦～</div>
+</div>
+
+<!-- 步骤二：蛋糕与吹气 -->
+<div id="step2" class="step hidden">
+  <div class="cake-area">
+    <div class="birthday-text">
+      祝我的丁猪 <span class="age">22岁</span> 生日快乐！🎂<br>
+      快对着手机下方用力吹气～
+    </div>
+
+    <div class="candles" id="candles">
+      <div class="candle">
+        <div class="flame" id="flame1"></div>
+        <div class="smoke" id="smoke1"></div>
+        <div class="candle-body"></div>
+      </div>
+      <div class="candle">
+        <div class="flame" id="flame2"></div>
+        <div class="smoke" id="smoke2"></div>
+        <div class="candle-body"></div>
+      </div>
+      <div class="candle">
+        <div class="flame" id="flame3"></div>
+        <div class="smoke" id="smoke3"></div>
+        <div class="candle-body"></div>
+      </div>
+    </div>
+
+    <div class="cake">
+      <div class="cake-layer cake-layer-3">
+        <div class="cream">
+          <div class="cream-dots">
+            <div class="cream-dot"></div><div class="cream-dot"></div>
+            <div class="cream-dot"></div><div class="cream-dot"></div>
+            <div class="cream-dot"></div>
+          </div>
+        </div>
+      </div>
+      <div class="cake-layer cake-layer-2">
+        <div class="cream">
+          <div class="cream-dots">
+            <div class="cream-dot"></div><div class="cream-dot"></div>
+            <div class="cream-dot"></div><div class="cream-dot"></div>
+            <div class="cream-dot"></div><div class="cream-dot"></div>
+            <div class="cream-dot"></div>
+          </div>
+        </div>
+      </div>
+      <div class="cake-layer cake-layer-1">
+        <div class="cream">
+          <div class="cream-dots">
+            <div class="cream-dot"></div><div class="cream-dot"></div>
+            <div class="cream-dot"></div><div class="cream-dot"></div>
+            <div class="cream-dot"></div><div class="cream-dot"></div>
+            <div class="cream-dot"></div><div class="cream-dot"></div>
+            <div class="cream-dot"></div>
+          </div>
+        </div>
+      </div>
+      <div class="cake-plate"></div>
+    </div>
+
+    <div class="hint-text">🎤 用力吹气吹灭蜡烛吧！</div>
+    <div class="volume-bar-container">
+      <div class="volume-bar" id="volumeBar"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 步骤三：许愿 -->
+<div id="step3" class="step hidden">
+  <div class="wish-text">
+    快闭上眼睛许愿！<br>
+    然后……抬头看！👀✨
+  </div>
+  <div class="wish-emoji">🌟</div>
+
+  <!-- 延迟5秒出现的礼物入口 -->
+  <div class="gift-area" id="giftArea">
+    <div class="gift-question">还想不想要礼物？🎁</div>
+    <button class="gift-btn" id="giftBtn">想要！🙋‍♂️</button>
+  </div>
+</div>
+
+<!-- 红包弹窗 -->
+<div class="modal-overlay" id="redPacketModal">
+  <div class="modal-card">
+    <div class="modal-pig">🐽</div>
+    <div class="modal-title">叮！专属暴富金已到账💰</div>
+    <div class="modal-code-label">— 支付宝口令红包 —</div>
+    <div class="modal-code">2006009</div>
+    <div class="modal-hint">拿去花！去广州给自己买点好吃的～</div>
+    <button class="modal-close-btn" id="modalCloseBtn">乖乖收下啦！</button>
+  </div>
+</div>
+
+<!-- 照片回忆墙 -->
+<div id="photo-album">
+  <div class="album-bg" id="albumBg"></div>
+  <div class="album-title">这半年，和丁猪一起收集的 52 个快乐碎片 ✨</div>
+  <div class="album-slider" id="albumSlider"></div>
+  <div class="kiss-btn-wrap">
+    <button class="kiss-btn" id="kissBtn">立刻兑换现实版亲亲 💋</button>
+  </div>
+</div>
+
+<!-- 亲亲弹窗 -->
+<div class="kiss-modal-overlay" id="kissModal">
+  <div class="kiss-modal-card">
+    <div class="kiss-modal-emoji">👩‍❤️‍👨</div>
+    <div class="kiss-modal-text">兑换成功！<br>请立刻放下手机，拥抱并亲吻你面前的超级好宝贝！�</div>
+    <button class="kiss-modal-close" id="kissModalClose">好！马上亲！🐽</button>
+  </div>
+</div>
+
+<script>
+(function(){
+
+  /* ====== 漂浮装饰生成 ====== */
+  var decoSymbols = ['♥','♡','✦','★','✧','♡','♥','✿'];
+  var decoColors = ['#FFB6C1','#FF91A4','#FFD1DC','#FFE4EC','#FFD700','#FFA07A'];
+  function createFloatingDeco(){
+    var el = document.createElement('div');
+    el.className = 'floating-deco';
+    el.textContent = decoSymbols[Math.floor(Math.random()*decoSymbols.length)];
+    el.style.left = Math.random()*100 + '%';
+    el.style.fontSize = (12 + Math.random()*16) + 'px';
+    el.style.color = decoColors[Math.floor(Math.random()*decoColors.length)];
+    el.style.animationDuration = (6 + Math.random()*8) + 's';
+    el.style.animationDelay = Math.random()*5 + 's';
+    document.body.appendChild(el);
+    setTimeout(function(){ el.remove(); }, 14000);
+  }
+  for(var i=0;i<15;i++){ setTimeout(createFloatingDeco, i*400); }
+  setInterval(createFloatingDeco, 1200);
+
+  /* ====== 彩纸生成 ====== */
+  var confettiColors = ['#FF6B9D','#FFD700','#87CEEB','#98FB98','#DDA0DD','#FFA07A','#FF69B4','#FFB6C1'];
+  function launchConfetti(){
+    for(var i=0;i<60;i++){
+      (function(idx){
+        setTimeout(function(){
+          var piece = document.createElement('div');
+          piece.className = 'confetti-piece';
+          piece.style.left = Math.random()*100 + '%';
+          piece.style.background = confettiColors[Math.floor(Math.random()*confettiColors.length)];
+          piece.style.width = (6 + Math.random()*6) + 'px';
+          piece.style.height = (8 + Math.random()*8) + 'px';
+          piece.style.animationDuration = (2 + Math.random()*2) + 's';
+          piece.style.animationDelay = '0s';
+          document.body.appendChild(piece);
+          setTimeout(function(){ piece.remove(); }, 4500);
+        }, idx*50);
+      })(i);
+    }
+  }
+
+  /* ====== 步骤切换 ====== */
+  var step1 = document.getElementById('step1');
+  var step2 = document.getElementById('step2');
+  var step3 = document.getElementById('step3');
+  var startBtn = document.getElementById('startBtn');
+  var volumeBar = document.getElementById('volumeBar');
+
+  var audioCtx, analyser, micStream;
+  var blowDetected = false;
+
+  /* ====== 步骤一：点击获取麦克风权限 ====== */
+  startBtn.addEventListener('click', async function(){
+    try{
+      var stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      micStream = stream;
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      analyser = audioCtx.createAnalyser();
+      analyser.fftSize = 512;
+      analyser.smoothingTimeConstant = 0.3;
+      var source = audioCtx.createMediaStreamSource(stream);
+      source.connect(analyser);
+
+      /* 切换到步骤二 */
+      step1.classList.add('hidden');
+      setTimeout(function(){
+        step2.classList.remove('hidden');
+        startBlowDetection();
+      }, 500);
+    }catch(e){
+      alert('需要麦克风权限才能吹蜡烛哦～请允许后刷新重试！');
+    }
+  });
+
+  /* ====== 步骤二：吹气检测 ====== */
+  function startBlowDetection(){
+    var dataArray = new Uint8Array(analyser.frequencyBinCount);
+    var blowCount = 0;
+    var BLOW_THRESHOLD = 45;
+    var BLOW_REQUIRED = 12;
+
+    function detect(){
+      if(blowDetected) return;
+      analyser.getByteFrequencyData(dataArray);
+
+      /* 计算平均音量 */
+      var sum = 0;
+      for(var i=0;i<dataArray.length;i++){ sum += dataArray[i]; }
+      var avg = sum / dataArray.length;
+
+      /* 更新音量条 */
+      var pct = Math.min(100, (avg / 80)*100);
+      volumeBar.style.width = pct + '%';
+
+      /* 吹气判定：连续超过阈值 */
+      if(avg > BLOW_THRESHOLD){
+        blowCount++;
+        if(blowCount >= BLOW_REQUIRED){
+          blowDetected = true;
+          onBlowDetected();
+          return;
+        }
+      }else{
+        blowCount = Math.max(0, blowCount - 2);
+      }
+
+      requestAnimationFrame(detect);
+    }
+    requestAnimationFrame(detect);
+  }
+
+  /* ====== 步骤三：蜡烛熄灭 ====== */
+  function onBlowDetected(){
+    /* 熄灭火焰，显示烟雾 */
+    var flames = document.querySelectorAll('.flame');
+    flames.forEach(function(f, idx){
+      setTimeout(function(){
+        f.classList.add('out');
+        var smoke = document.getElementById('smoke' + (idx+1));
+        smoke.classList.add('show');
+      }, idx * 200);
+    });
+
+    /* 背景变暗 */
+    setTimeout(function(){
+      document.body.classList.add('dark-mode');
+    }, 600);
+
+    /* 切换到步骤三 */
+    setTimeout(function(){
+      step2.classList.add('hidden');
+      setTimeout(function(){
+        step3.classList.remove('hidden');
+        launchConfetti();
+
+        /* 5秒后淡入礼物入口 */
+        setTimeout(function(){
+          document.getElementById('giftArea').classList.add('visible');
+        }, 5000);
+      }, 400);
+    }, 1200);
+  }
+
+  /* ====== 红包弹窗交互 ====== */
+  var modal = document.getElementById('redPacketModal');
+  var giftBtn = document.getElementById('giftBtn');
+  var modalCloseBtn = document.getElementById('modalCloseBtn');
+  var photoAlbum = document.getElementById('photo-album');
+
+  giftBtn.addEventListener('click', function(){
+    modal.classList.add('show');
+  });
+
+  /* 点击"乖乖收下啦！"：关闭弹窗 → 淡出step3 → 进入相册 */
+  modalCloseBtn.addEventListener('click', function(){
+    modal.classList.remove('show');
+    step3.classList.add('hidden');
+    setTimeout(function(){
+      photoAlbum.classList.add('show');
+    }, 600);
+  });
+
+  modal.addEventListener('click', function(e){
+    if(e.target === modal){
+      modal.classList.remove('show');
+    }
+  });
+
+  /* ====== 生成星空背景 ====== */
+  (function(){
+    var bg = document.getElementById('albumBg');
+    for(var i=0;i<80;i++){
+      var star = document.createElement('div');
+      star.className = 'album-star';
+      star.style.left = Math.random()*100 + '%';
+      star.style.top = Math.random()*100 + '%';
+      star.style.width = (1 + Math.random()*2) + 'px';
+      star.style.height = star.style.width;
+      star.style.animationDelay = (Math.random()*3) + 's';
+      star.style.animationDuration = (1.5 + Math.random()*2) + 's';
+      bg.appendChild(star);
+    }
+  })();
+
+  /* ====== 生成52张拍立得照片（横向滑动） ====== */
+  (function(){
+    var slider = document.getElementById('albumSlider');
+    var captions = [
+      '第一次一起吃饭 🍜','散步的傍晚 🌅','偷拍你睡觉 😴','一起看电影 🎬',
+      '你做的饭超好吃 👨‍🍳','雨天撑一把伞 ☔','游乐园那天 🎡','你笑起来好好看 😊',
+      '深夜撸串 🍢','一起逛超市 🛒','你给我拍照 📸','手牵手过马路 🤝',
+      '第一次吵架和好 🫂','你帮我拎包 👜','一起喝奶茶 🧋','周末赖床 ☀️',
+      '你弹琴我听 🎹','一起打游戏 🎮','你送我回宿舍 🏠','偷偷亲你 😘',
+      '一起看日落 🌇','你给我暖手 🧤','吃火锅那天 🍲','你逗我笑 🤣',
+      '一起坐地铁 🚇','你帮我吹头发 💇‍♀️','逛宜家那天 🛋️','你背我走 🐷',
+      '一起吃冰淇淋 🍦','你给我唱歌 🎤','深夜视频通话 📱','你帮我擦眼泪 💧',
+      '一起看星星 🌟','你做的早餐 🥞','你等我下课 📚','一起买衣服 👗',
+      '你帮我系鞋带 👟','一起遛弯 🚶','你给我买花 💐','一起吃蛋糕 🍰',
+      '你帮我涂指甲 💅','一起看烟花 🎆','你给我讲笑话 😂','一起坐摩天轮 🎠',
+      '你帮我拍照摆pose ✌️','一起吃早餐 🥐','你给我买零食 🍫','一起看雪 ❄️',
+      '你帮我撑伞 🌂','一起倒数跨年 🎊','你说的情话 💕','最爱的丁猪 🐽'
+    ];
+
+    /*
+     * ★ 替换照片说明 ★
+     * 当前使用 picsum 占位图，替换为本地照片时：
+     * 1. 把52张照片命名为 1.jpg ~ 52.jpg，放在同目录下的 photos/ 文件夹中
+     * 2. 将下面的 src 改为: 'photos/' + i + '.jpg'
+     * 3. 删除 ?random=' + i 后缀
+     */
+    for(var i=1;i<=52;i++){
+      var card = document.createElement('div');
+      card.className = 'polaroid';
+
+      var img = document.createElement('img');
+      img.src = 'https://picsum.photos/300/400?random=' + i;
+      img.alt = '照片' + i;
+      img.loading = 'lazy';
+
+      var caption = document.createElement('div');
+      caption.className = 'polaroid-caption';
+      caption.textContent = captions[i-1] || ('第' + i + '个瞬间');
+
+      card.appendChild(img);
+      card.appendChild(caption);
+      slider.appendChild(card);
+    }
+  })();
+
+  /* ====== 亲亲按钮交互 ====== */
+  (function(){
+    var kissBtn = document.getElementById('kissBtn');
+    var kissModal = document.getElementById('kissModal');
+    var kissModalClose = document.getElementById('kissModalClose');
+    var heartSymbols = ['💕','💗','🐽','💖','💋','💘','🐷','❤️'];
+
+    function launchHearts(){
+      for(var i=0;i<50;i++){
+        (function(idx){
+          setTimeout(function(){
+            var heart = document.createElement('div');
+            heart.className = 'heart-piece';
+            heart.textContent = heartSymbols[Math.floor(Math.random()*heartSymbols.length)];
+            heart.style.left = Math.random()*100 + '%';
+            heart.style.fontSize = (16 + Math.random()*20) + 'px';
+            heart.style.animationDuration = (2.5 + Math.random()*2) + 's';
+            document.body.appendChild(heart);
+            setTimeout(function(){ heart.remove(); }, 5000);
+          }, idx*60);
+        })(i);
+      }
+    }
+
+    kissBtn.addEventListener('click', function(){
+      launchHearts();
+      setTimeout(function(){
+        kissModal.classList.add('show');
+      }, 400);
+    });
+
+    kissModalClose.addEventListener('click', function(){
+      kissModal.classList.remove('show');
+    });
+
+    kissModal.addEventListener('click', function(e){
+      if(e.target === kissModal){
+        kissModal.classList.remove('show');
+      }
+    });
+  })();
+
+})();
+</script>
+</body>
+</html>
